@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe GamesController, type: :controller do
-    describe "games#show action" do 
+    describe "games#index action" do 
         it "should show the board with current piece positions" do
             game = FactoryBot.create(:game)
-            get :show, params: { id: game.id }
+            get :index, params: { id: game.id }
             expect(response).to have_http_status(:success)
         end
     end
@@ -13,7 +13,6 @@ RSpec.describe GamesController, type: :controller do
         it "should allow users to create a new game" do
             game = FactoryBot.create(:game)
 	        user = FactoryBot.create(:user)
-            sign_in user
             expect(response). to have_http_status(:success)
         end 
     end
@@ -22,7 +21,6 @@ RSpec.describe GamesController, type: :controller do
         it "should allow users to update a game" do
             game = FactoryBot.create(:game)
             user = FactoryBot.create(:user)
-            sign_in user
 
             patch :update, params: { id: game.id, game: { message: 'wahoo' } }
             expect(response).to have_http_status(:success)
@@ -32,12 +30,10 @@ RSpec.describe GamesController, type: :controller do
     describe "games#destroy action" do
         it "should allow users to destroy a game" do
             game = FactoryBot.create(:game)
-            sign_in game.user
             delete :destroy, params: { id: game.id }
             expect(response).to redirect_to root_path
             game = Game.find_by_id(game.id)
             expect(game). to eq nil
         end
     end
-
 end
