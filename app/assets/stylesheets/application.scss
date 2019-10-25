@@ -14,3 +14,44 @@
  *= require_tree .
  *= require_self
  */
+
+ .board {
+	margin: auto;
+	height: 500px;
+	width: 500px;
+}
+
+body {
+	margin: auto;
+	padding-left: 100px;
+	padding-right: 100px;
+	padding-top: 100px;
+	padding-bottom: 100px;
+}
+
+.cell {
+	float: left;
+	width: 60px;
+	height: 60px;
+	border: 1px  solid black;
+  }
+
+  .cell-alt {
+	float: left;
+	width: 60px;
+	height: 60px;
+	border: 1px  solid black;
+	background-color: grey;
+  }
+
+  .row {
+	width: 100%;
+	height: 60px;
+  }
+  
+ 
+  .row:after {
+	content: "";
+	display: table;
+	clear: both;
+  }
