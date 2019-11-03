@@ -1,4 +1,4 @@
 class Game < ApplicationRecord
-    def show
-    end
+  def show
+  end
 end
