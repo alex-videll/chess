@@ -1,4 +1,3 @@
 class Game < ApplicationRecord
-  def show
-  end
+  belongs_to :result
 end
