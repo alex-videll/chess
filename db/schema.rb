@@ -10,12 +10,62 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_22_225127) do
+ActiveRecord::Schema.define(version: 2019_11_09_204108) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "games", force: :cascade do |t|
+    t.integer "total_time_limit"
+    t.integer "time_to_move_piece"
+    t.datetime "ending_time"
+    t.datetime "starting_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.bigint "result_id"
+    t.index ["result_id"], name: "index_games_on_result_id"
+    t.index ["user_id"], name: "index_games_on_user_id"
+  end
+
+  create_table "piece_moves", force: :cascade do |t|
+    t.string "notation"
+    t.integer "order"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "piece_id"
+    t.bigint "game_id"
+    t.integer "x_position"
+    t.integer "y_position"
+    t.bigint "black_player_id"
+    t.bigint "white_player_id"
+    t.index ["black_player_id"], name: "index_piece_moves_on_black_player_id"
+    t.index ["game_id"], name: "index_piece_moves_on_game_id"
+    t.index ["piece_id"], name: "index_piece_moves_on_piece_id"
+    t.index ["white_player_id"], name: "index_piece_moves_on_white_player_id"
+  end
+
+  create_table "pieces", force: :cascade do |t|
+    t.string "name"
+    t.string "starting_position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "players", force: :cascade do |t|
+    t.float "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "game_id"
+    t.bigint "white_player_id"
+    t.bigint "black_player_id"
+    t.index ["black_player_id"], name: "index_players_on_black_player_id"
+    t.index ["game_id"], name: "index_players_on_game_id"
+    t.index ["white_player_id"], name: "index_players_on_white_player_id"
+  end
+
+  create_table "results", force: :cascade do |t|
+    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -28,8 +78,19 @@ ActiveRecord::Schema.define(version: 2019_10_22_225127) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_rating"
+    t.string "user_name"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "games", "results"
+  add_foreign_key "games", "users"
+  add_foreign_key "piece_moves", "games"
+  add_foreign_key "piece_moves", "pieces"
+  add_foreign_key "piece_moves", "users", column: "black_player_id"
+  add_foreign_key "piece_moves", "users", column: "white_player_id"
+  add_foreign_key "players", "games"
+  add_foreign_key "players", "users", column: "black_player_id"
+  add_foreign_key "players", "users", column: "white_player_id"
 end
