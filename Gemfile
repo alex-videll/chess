@@ -74,3 +74,4 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.3.3'
 end
 gem 'simple_form'
+gem 'sprockets-rails', '2.3.3'

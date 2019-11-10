@@ -1,3 +1,29 @@
+var types = ["king", "queen", "bishop", "knight", "rook", "pawn"];
+
+
+class Board {
+	constructor() {
+		this.cells = [];
+	}
+}
+
+class Cell {
+	constructor(position, piece) {
+		this.position = position;
+		this.piece = piece;
+	}
+}
+
+class Piece {
+	constructor(type, color, position) {
+		this.type = type;
+		this.color = color;
+		this.position = position;
+	} 
+}
+
+var myboard = new Board();
+
 function createBoard() {
 	var board = document.querySelector('.board');
 
@@ -20,6 +46,10 @@ function createBoard() {
 
 			var cell = createCell(isAlt);
 			myRow.appendChild(cell);
+
+			
+			var mycell = new Cell([i, j], null);
+			myboard.cells.push(mycell);
 		}
 		board.appendChild(myRow);
 	}
@@ -27,11 +57,34 @@ function createBoard() {
 
 function createCell(isAlt) {
 	var cell = document.createElement('div');
-	cell.className = isAlt ? 'cell-alt' : 'cell';
+	cell.className = isAlt ? 'cell cell-alt' : 'cell';
+	cell.setAttribute("ondrop", "drop(event)"); 
+	cell.setAttribute("ondragover", "allowDrop(event)"); 
 	return cell;
 }
 
+function createPiece(name) {
+	var piece = document.createElement('img');
+	piece.className = "piece";
+	piece.setAttribute("draggable", "true");
+	piece.setAttribute("ondragstart", "drag(event)");
+	piece.src = "img\\" + name + ".png";
+	piece.id = name;
+	return piece;
+}
+
+function allowDrop(ev) {
+	ev.preventDefault();
+  }
+  
+  function drag(ev) {
+	ev.dataTransfer.setData("text", ev.target.id);
+  }
+  
+  function drop(ev) {
+	ev.preventDefault();
+	var data = ev.dataTransfer.getData("text");
+	ev.target.appendChild(document.getElementById(data));
+  }
+
 createBoard();
-
-
-	
