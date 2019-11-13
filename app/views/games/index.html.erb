@@ -6,7 +6,9 @@
     <div class="game-info">
       <% if game.black_player_id.nil? %>
       <li>The game <%= game.id %> is waiting for the second player</li>
+      <button type="button" class="btn btn-primary"> join</button>
       <% end %>
-    </div>  
+    </div> 
+    <br /> 
   <% end %>
 </ul>
