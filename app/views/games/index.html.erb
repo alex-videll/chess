@@ -1,8 +1,12 @@
-<html>
-	<head>
-	</head>
-    <body>
-    <h1>Chess app</h1>
-    <p>The most advanced chess training app. Improve your skills, learn tactics and strategies.</p>
-	</body>
-</html>
+<br />
+<h2>Here is a list of available games</h2>
+<br />
+<ul>
+  <% @games.each do |game| %>
+    <div class="game-info">
+      <% if game.black_player_id.nil? %>
+      <li>The game <%= game.id %> is waiting for the second player</li>
+      <% end %>
+    </div>  
+  <% end %>
+</ul>
