@@ -94,4 +94,5 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 end
 
+Rails.application.config.assets.precompile += %w( board.js )
 

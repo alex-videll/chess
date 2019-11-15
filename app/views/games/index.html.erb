@@ -1,13 +1,19 @@
 <html>
-	<head>
-		<link rel="stylesheet" type="text/scss" href="games.scss">
-	</head>
-    <body>
+​
+<head>
+    <link rel="stylesheet" type="text/scss" href="application.scss">
+    <%= javascript_include_tag "board.js" %>
+</head>
+​
+<body>
     <h1>Chess app</h1>
     <p>The most advanced chess training app. Improve your skills, learn tactics and strategies.</p>
-
-    <div class="board"> 
-    <%= javascript_include_tag 'board' %>  
-    </div> 
-    </body>
+    <div class="chess-board">
+    </div>
+</body>
+​
 </html>
+
+
+
+
