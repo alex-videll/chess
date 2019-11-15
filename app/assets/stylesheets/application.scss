@@ -29,6 +29,10 @@ body {
 	padding-bottom: 100px;
 }
 
+.chess-board {
+	width: 500px;
+}
+
 .cell {
 	float: left;
 	width: 60px;
@@ -55,3 +59,4 @@ body {
 	display: table;
 	clear: both;
   }
+
